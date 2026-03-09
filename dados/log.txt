@@ -1,0 +1,12 @@
+[26/10/2025 23:16:27] Cadastro de novo produto: carro
+[26/10/2025 23:20:29] Cadastro de novo produto: Fusca
+[26/10/2025 23:20:45] Cadastro de novo produto: gol
+[26/10/2025 23:21:04] Cadastro de novo produto: Passat 
+[26/10/2025 23:28:05] Cadastro de novo produto: Gol
+[26/10/2025 23:28:17] Cadastro de novo produto: Voyage
+[26/10/2025 23:28:59] Cadastro de novo produto: g
+[26/10/2025 23:29:03] Cadastro de novo produto: 
+[26/10/2025 23:29:20] Exclusão do produto: g
+[27/10/2025 20:35:31] Cadastro de novo produto: a
+[27/10/2025 20:35:46] Cadastro de novo produto: b
+[27/10/2025 20:35:59] Exclusão do produto: a
