@@ -125,15 +125,8 @@ def main():
                     print("Opção invalida, tente novamente!")
                     escolha_do_usuario =int(input("digite uma opcão: "))
                     
-                    
-def cadastrar_cliente():
-    pass
-
-def listar_clientes():
-    pass
-                    
-
-def gerar_novo_id(lista_produtos):
+def gerar_novo_id(lista_produtos, clientes):
+    #NOVO ID PRODUTOS
     """Verifica a lista e retorna o próximo ID válido."""
     if not lista_produtos:
         # Se a lista está vazia, o primeiro ID é 1
@@ -144,8 +137,59 @@ def gerar_novo_id(lista_produtos):
     return maior_id + 1
 
 
+    #NOVO ID CLIENTES
+    """Verifica a lista e retorna o próximo ID válido."""
+    if not clientes:
+        # Se a lista está vazia, o primeiro ID é 1
+        return 1
+    
+    # Pega o maior ID que existe na lista e soma 1
+    maior_id = max(cliente['id'] for cliente in clientes)
+    return maior_id + 1
+                    
+                    
+def cadastrar_cliente(clientes):
+    pass
 
+    nome_cliente = input("Digite o nome do cliente").strip().upper()
+    while not nome_cliente:
+        print(f"{VERMELHO}Nome não pode estar vazio!{NONE}")
+        nome_cliente = input("Digite o nome do cliente: ").strip().upper()
+        
+    # verificar se o cliente ja existe
+    cliente_ja_existe = False
+    for cliente in clientes:
+        #compara os nomes ignorando maiusculas e minusculas
+        if nome_cliente ["nome"].lower()  == nome_cliente.lower():
+            cliente_ja_existe = True
+            print(f"{VERMELHO}Erro:{NONE} O cliente '{nome_cliente}' já está existe (ID: {['id']}).")
+            print("Use a Opção" '''colocar opcao''' " (Editar) se quiser adicionar estoue ou alterar o preço.")
+            break
+        
+        if cliente_ja_existe:
+            return
+        # --- FIM DA VERIFICAÇÃO ---
 
+    # Se o 'if' acima não foi ativado, o cliente é novo e o código continua.
+    
+        valor_gasto = 0 #adiciona um espaço para o valor total gasto, cada compra temos que adicionar nesse espaço.
+                
+    novo_cliente = {
+        "id": id_atual_cliente,
+        "nome": nome_cliente,
+        "valor gasto": valor_gasto
+    }
+
+    '''estoque_da_loja.append(novo_produto)
+    salvar_estoque_csv(estoque_da_loja)
+    registrar_log("Cadastro de novo produto", nome)'''
+
+    print(f"{VERDE}Cliente '{nome_cliente}' cadastrado com sucesso!{NONE}")
+        
+    pass
+
+def listar_clientes():
+    pass
 
 def cadastrar_produto(estoque_da_loja): 
 
