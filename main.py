@@ -104,5 +104,93 @@ def gerar_id_venda():
     lista = vendas.listar_todos()
     if len(lista) == 0: return 1
     return max([v.id for v in lista]) + 1
+# --- FUNCOES AUXILIARES PARA GERAR ID ---
+def gerar_id_cliente():
+    lista = clientes.listar_todos()
+    if len(lista) == 0: return 1
+    return max([c.id for c in lista]) + 1
 
+def gerar_id_produto():
+    lista = produtos.listar_todos()
+    if len(lista) == 0: return 1
+    return max([p.id for p in lista]) + 1
+
+def gerar_id_venda():
+    lista = vendas.listar_todos()
+    if len(lista) == 0: return 1
+    return max([v.id for v in lista]) + 1
+
+
+# --- FUNCAO PRINCIPAL E MENU ---
+def main():
+    carregar_dados()
+    
+    while True:
+        print(f"\n{COR_SISTEMA}======================================={RESET}")
+        print(f"{COR_SISTEMA}     SISTEMA DE ESTOQUE E VENDAS       {RESET}")
+        print(f"{COR_SISTEMA}======================================={RESET}")
+        
+        print(f"\n{COR_CADASTRO}[ CADASTROS E GERENCIAMENTO ]{RESET}")
+        print("1. Cadastrar cliente")
+        print("2. Editar cliente")
+        print("3. Cadastrar produto")
+        print("4. Editar produto")
+        
+        print(f"\n{COR_LISTAGEM}[ CONSULTAS E LISTAGENS ]{RESET}")
+        print("5. Listar clientes")
+        print("6. Listar produtos do estoque")
+        print("7. Pesquisar produto (nome ou id)")
+        
+        print(f"\n{COR_OPERACAO}[ VENDAS E OPERACOES ]{RESET}")
+        print("8. Realizar venda")
+        print("9. Visualizar fila de vendas")
+        print("10. Desfazer ultima operacao")
+        
+        print(f"\n{COR_RELATORIO}[ RELATORIOS E TOTAIS ]{RESET}")
+        print("11. Exibir valor total do estoque")
+        print("12. Exibir valor total de vendas realizadas")
+        print("13. Exibir clientes e valores totais gastos")
+        
+        print(f"\n{COR_SISTEMA}[ SISTEMA ]{RESET}")
+        print("14. Sair")
+        
+        opcao_str = input("\nEscolha uma opcao: ")
+        
+        try:
+            opcao = int(opcao_str)
+        except ValueError:
+            print("Erro: Digite apenas numeros validos para o menu.")
+            continue
+
+        # --- BLOCO DE CADASTROS ---
+        if opcao == 1:
+            nome = input("Nome do cliente: ").strip()
+            if nome == "":
+                print("Erro: Nome nao pode ser vazio.")
+                continue
+            
+            novo_id = gerar_id_cliente()
+            clientes.inserir(Cliente(novo_id, nome))
+            historico.empilhar({"acao": "cadastro_cliente", "id": novo_id})
+            salvar_dados()
+            print("Cliente cadastrado com sucesso!")
+
+        elif opcao == 2: # Editar Cliente
+            id_cliente = input("Digite o ID do cliente que deseja editar: ").strip()
+            
+            # Mostra o nome atual antes de editar
+            cliente_atual = clientes.buscar_por_id(id_cliente)
+            if cliente_atual:
+                print(f"Nome atual: {cliente_atual.nome}")
+                novo_nome = input("Digite o novo nome (ou aperte Enter para cancelar): ").strip()
+                
+                if novo_nome != "":
+                    # Chama o metodo que criamos na estrutura
+                    clientes.editar_por_id(id_busca=id_cliente, novo_nome=novo_nome)
+                    salvar_dados()
+                    print("Cliente atualizado com sucesso!")
+                else:
+                    print("Operacao cancelada. Nome mantido.")
+            else:
+                print("Erro: Cliente nao encontrado.")
 
