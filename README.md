@@ -26,7 +26,7 @@ Luiz Henrique Appelt Weller - 1138930
 
 Ricardo Trento Werner - 1138812
 
-*Trabalho desenvolvido para a disciplina de Pensamento Computacional, sob orientação do Professor Augusto Ortolan.*
+*Trabalho desenvolvido para a disciplina de ORGANIZAÇÃO E ABSTRAÇÃO NA PROGRAMAÇÃO, sob orientação do Professor Augusto Ortolan.*
 
 
 

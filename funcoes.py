@@ -64,24 +64,24 @@ def salvar_dados():
     # Salva todos os clientes reescrevendo o arquivo
     try:
         with open(ARQ_CLIENTES, 'w') as f:
-            for c in clientes.listar_todos():
-                f.write(f"{c.id};{c.nome}\n")
+            for cliente in clientes.listar_todos():
+                f.write(f"{cliente.id};{cliente.nome}\n")
     except Exception as e:
         print("Erro ao salvar clientes:", e)
 
     # Salva todos os produtos
     try:
         with open(ARQ_PRODUTOS, 'w') as f:
-            for p in produtos.listar_todos():
-                f.write(f"{p.id};{p.nome};{p.quantidade};{p.preco}\n")
+            for produto in produtos.listar_todos():
+                f.write(f"{produto.id};{produto.nome};{produto.quantidade};{produto.preco}\n")
     except Exception as e:
         print("Erro ao salvar produtos:", e)
 
     # Salva todas as vendas
     try:
         with open(ARQ_VENDAS, 'w') as f:
-            for v in vendas.listar_todos():
-                f.write(f"{v.id};{v.id_cliente};{v.id_produto};{v.quantidade};{v.valor_total}\n")
+            for venda in vendas.listar_todos():
+                f.write(f"{venda.id};{venda.id_cliente};{venda.id_produto};{venda.quantidade};{venda.valor_total}\n")
     except Exception as e:
         print("Erro ao salvar vendas:", e)
 
@@ -90,17 +90,17 @@ def salvar_dados():
 def gerar_id_cliente():
     lista = clientes.listar_todos()
     if len(lista) == 0: return 1
-    return max([c.id for c in lista]) + 1
+    return max([cliente.id for cliente in lista]) + 1
 
 def gerar_id_produto():
     lista = produtos.listar_todos()
     if len(lista) == 0: return 1
-    return max([p.id for p in lista]) + 1
+    return max([produto.id for produto in lista]) + 1
 
 def gerar_id_venda():
     lista = vendas.listar_todos()
     if len(lista) == 0: return 1
-    return max([v.id for v in lista]) + 1
+    return max([venda.id for venda in lista]) + 1
 
 
 # MAIN E MENU
@@ -223,14 +223,14 @@ def main():
             if len(lista) == 0: print("Nenhum cliente cadastrado.")
             else:
                 print("\nLista de Clientes:")
-                for c in lista: print(f"ID: {c.id} | Nome: {c.nome}")
+                for cliente in lista: print(f"ID: {cliente.id} | Nome: {cliente.nome}")
 
         elif opcao == 6:
             lista = produtos.listar_todos()
             if len(lista) == 0: print("Nenhum produto em estoque.")
             else:
                 print("\nEstoque atual:")
-                for p in lista: print(f"ID: {p.id} | Nome: {p.nome} | Qtd: {p.quantidade} | Preco: R$ {p.preco:.2f}")
+                for produto in lista: print(f"ID: {produto.id} | Nome: {produto.nome} | Qtd: {produto.quantidade} | Preco: R$ {produto.preco:.2f}")
 
         elif opcao == 7:
             termo = input("Digite o ID ou o Nome do produto: ").strip()
@@ -243,9 +243,9 @@ def main():
                 resultados = produtos.buscar_por_nome(termo)
                 if len(resultados) == 0: print("Nenhum produto encontrado.")
                 else:
-                    for p in resultados: print(f"ID: {p.id} | Nome: {p.nome} | Qtd: {p.quantidade}")
+                    for produto in resultados: print(f"ID: {produto.id} | Nome: {produto.nome} | Qtd: {produto.quantidade}")
 
-        # --- BLOCO DE OPERACOES ---
+        #OPERACOES
         elif opcao == 8:
             try:
                 id_cliente = int(input("ID do cliente: "))
@@ -276,7 +276,7 @@ def main():
             lista = vendas.listar_todos()
             if len(lista) == 0: print("Nenhuma venda realizada.")
             else:
-                for v in lista: print(f"ID: {v.id} | Cliente: {v.id_cliente} | Prod: {v.id_produto} | Qtd: {v.quantidade} | Total: R$ {v.valor_total:.2f}")
+                for venda in lista: print(f"ID: {venda.id} | Cliente: {venda.id_cliente} | Prod: {venda.id_produto} | Qtd: {venda.quantidade} | Total: R$ {venda.valor_total:.2f}")
 
         elif opcao == 10:
             ultima_acao = historico.desempilhar()
@@ -301,20 +301,20 @@ def main():
         # --- BLOCO DE RELATORIOS ---
         elif opcao == 11:
             lista = produtos.listar_todos()
-            total = sum([(p.quantidade * p.preco) for p in lista])
+            total = sum([(produto.quantidade * produto.preco) for produto in lista])
             print(f"Valor total do estoque: R$ {total:.2f}")
 
         elif opcao == 12:
             lista = vendas.listar_todos()
-            total = sum([v.valor_total for v in lista])
+            total = sum([venda.valor_total for venda in lista])
             print(f"Valor total de vendas: R$ {total:.2f}")
 
         elif opcao == 13:
             lista_clientes = clientes.listar_todos()
             lista_vendas = vendas.listar_todos()
-            for c in lista_clientes:
-                gasto = sum([v.valor_total for v in lista_vendas if v.id_cliente == c.id])
-                print(f"Cliente: {c.nome} | Total Gasto: R$ {gasto:.2f}")
+            for cliente in lista_clientes:
+                gasto = sum([venda.valor_total for venda in lista_vendas if venda.id_cliente == cliente.id])
+                print(f"Cliente: {cliente.nome} | Total Gasto: R$ {gasto:.2f}")
 
         # --- SAIDA ---
         elif opcao == 14:
