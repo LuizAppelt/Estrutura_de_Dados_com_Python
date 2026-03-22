@@ -248,9 +248,15 @@ def main():
         #OPERACOES
         elif opcao == 8:
             try:
+                if len(lista) == 0: print("Nenhum cliente cadastrado.")
+                else:
+                    print("\nLista de Clientes:")
+                for cliente in lista: print(f"ID: {cliente.id} | Nome: {cliente.nome}")
+                
                 id_cliente = int(input("ID do cliente: "))
                 id_produto = int(input("ID do produto: "))
                 qtd_venda = int(input("Quantidade a vender: "))
+                lista = clientes.listar_todos()
             except ValueError:
                 print("Erro: Entradas devem ser numeros inteiros.")
                 continue
