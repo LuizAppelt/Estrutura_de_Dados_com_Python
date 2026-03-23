@@ -28,11 +28,11 @@ Este projeto consiste no desenvolvimento de um sistema de gerenciamento de estoq
 
 O sistema permite:
 
-* Cadastro e listagem de clientes
-* Cadastro e controle de produtos em estoque
-* Realização de vendas
-* Consulta de histórico de vendas
-* Desfazer a última operação realizada
+* Cadastro e listagem de clientes;
+* Cadastro e controle de produtos em estoque;
+* Realização de vendas;
+* Consulta de histórico de vendas;
+* Desfazer a última operação realizada.
 
 Além disso, o sistema realiza **persistência automática dos dados** utilizando arquivos `.csv` ou `.txt`, garantindo que as informações não sejam perdidas ao encerrar o programa.
 
