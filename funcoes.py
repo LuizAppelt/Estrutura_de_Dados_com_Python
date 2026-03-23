@@ -233,18 +233,54 @@ def main():
                 for produto in lista: print(f"ID: {produto.id} | Nome: {produto.nome} | Qtd: {produto.quantidade} | Preco: R$ {produto.preco:.2f}")
 
         elif opcao == 7:
-            termo = input("Digite o ID ou o Nome do produto: ").strip()
+            # 1. Lista os clientes primeiro
+            print(f"\n{COR_LISTAGEM}--- Clientes Cadastrados ---{RESET}")
+            lista_cli = clientes.listar_todos()
+            if len(lista_cli) == 0:
+                print("Nenhum cliente cadastrado.")
+            else:
+                for c in lista_cli: 
+                    print(f"ID: {c.id} | Nome: {c.nome}")
+
+            # 2. Lista os produtos em seguida
+            print(f"\n{COR_LISTAGEM}--- Produtos Cadastrados ---{RESET}")
+            lista_prod = produtos.listar_todos()
+            if len(lista_prod) == 0:
+                print("Nenhum produto cadastrado.")
+            else:
+                for p in lista_prod: 
+                    print(f"ID: {p.id} | Nome: {p.nome}")
+
+            # 3. SÓ AGORA pede o que o usuário quer pesquisar
+            termo = input("\nDigite o ID ou o Nome para pesquisar (ou Enter para voltar): ").strip()
             if termo == "": continue
 
+            # 4. Realiza a busca na Lista de Produtos
+            print(f"\n{COR_OPERACAO}[ Resultados em Produtos ]{RESET}")
             produto_encontrado = produtos.buscar_por_id(termo)
             if produto_encontrado:
                 print(f"Produto Encontrado -> ID: {produto_encontrado.id} | Nome: {produto_encontrado.nome} | Qtd: {produto_encontrado.quantidade}")
             else:
-                resultados = produtos.buscar_por_nome(termo)
-                if len(resultados) == 0: print("Nenhum produto encontrado.")
+                resultados_prod = produtos.buscar_por_nome(termo)
+                if len(resultados_prod) == 0: 
+                    print("Nenhum produto encontrado com esse termo.")
                 else:
-                    for produto in resultados: print(f"ID: {produto.id} | Nome: {produto.nome} | Qtd: {produto.quantidade}")
+                    for produto in resultados_prod: 
+                        print(f"ID: {produto.id} | Nome: {produto.nome} | Qtd: {produto.quantidade}")
 
+            # 5. Realiza a busca na Lista de Clientes
+            print(f"\n{COR_OPERACAO}[ Resultados em Clientes ]{RESET}")
+            cliente_encontrado = clientes.buscar_por_id(termo)
+            if cliente_encontrado:
+                print(f"Cliente Encontrado -> ID: {cliente_encontrado.id} | Nome: {cliente_encontrado.nome}")
+            else:
+                resultados_cli = clientes.buscar_por_nome(termo)
+                if len(resultados_cli) == 0: 
+                    print("Nenhum cliente encontrado com esse termo.")
+                else:
+                    for cliente in resultados_cli: 
+                        print(f"ID: {cliente.id} | Nome: {cliente.nome}")
+        
         #OPERACOES
         elif opcao == 8:
             try:
